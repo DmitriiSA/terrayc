@@ -28,25 +28,30 @@ resource "yandex_vpc_subnet" "default-ru-central1-d" {
 
 # Build instance ycvm1
 resource "yandex_compute_instance" "ycvm1" {
-  name        = "ycvm1"
-  platform_id = "standard-v2"
-  zone        = "ru-central1-a"
+   name        = "ycvm1"
+  platform_id = "standard-v3"
+  zone        = "ru-central1-d"
 
   resources {
     cores  = 2
     memory = 2
+    core_fraction = 50
   }
 
   boot_disk {
-    initialize_params {
-      image_id = "fd8vmcue7aajpmeo39kk" # Ubuntu 20.04 LTS
-      size     = 20
+      initialize_params {
+      image_id = "fd8vmcue7aajpmeo39kk" # ОС Ubuntu 20.04 LTS
+      size     =  10
+      type     = "network-ssd"
     }
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.app-subnet.id
-    nat       = true
+    index     = 1
+    subnet_id = yandex_vpc_subnet.default-ru-central1-d.id
+    //nat_ip_version = ipv4
+    nat = true
+    ipv4 = true
   }
 
   metadata = {
@@ -63,18 +68,23 @@ resource "yandex_compute_instance" "ycvm2" {
   resources {
     cores  = 2
     memory = 2
+    core_fraction = 50
   }
 
   boot_disk {
-    initialize_params {
-      image_id = "fd8vmcue7aajpmeo39kk" # Ubuntu 20.04 LTS
-      size     = 20
+      initialize_params {
+      image_id = "fd8vmcue7aajpmeo39kk" # ОС Ubuntu 20.04 LTS
+      size     =  10
+      type     = "network-ssd"
     }
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.app-subnet.id
-    nat       = true
+    index     = 1
+    subnet_id = yandex_vpc_subnet.default-ru-central1-d.id
+    //nat_ip_version = ipv4
+    nat = true
+    ipv4 = true
   }
 
   metadata = {
