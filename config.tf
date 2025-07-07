@@ -55,7 +55,7 @@ resource "yandex_compute_instance" "ycvm1" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
      }
 }
 
@@ -88,8 +88,9 @@ resource "yandex_compute_instance" "ycvm2" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
   }
+
 
   }
 
